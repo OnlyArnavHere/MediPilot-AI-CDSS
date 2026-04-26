@@ -7,15 +7,18 @@ AI-Based Clinical Decision Support System (AI-CDSS) web app.
 - React + Vite
 - Tailwind CSS
 - Framer Motion
-- Local AI via Ollama (`http://localhost:11434/api/generate`)
+- Google Gemini API via Netlify Function
 
 ## Run Locally
 
 1. Install dependencies:
    - `npm install`
-2. Pull model:
-   - `ollama pull llama3`
-3. Start app:
+2. Add your Gemini API key for local Netlify functions:
+   - copy `.env.example` to `.env`
+   - set `GEMINI_API_KEY=...`
+3. Start the app with Netlify locally:
+   - `npx netlify dev`
+4. Or start the frontend only:
    - `npm run dev`
 
 Detailed setup and troubleshooting:

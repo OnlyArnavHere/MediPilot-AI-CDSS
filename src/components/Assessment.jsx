@@ -10,7 +10,7 @@ function Assessment({ report, isLoading, onBack, onRestart, onRegenerate }) {
     <div className="glass-card p-5 md:p-8">
       <h2 className="font-display text-xl font-semibold text-white md:text-2xl">Step 3: AI Assessment</h2>
       <p className="mt-2 text-sm text-slate-300">
-        Clinical report generated locally via Ollama. Always validate with clinical judgment.
+        Clinical report generated through a secure serverless function. Always validate with clinical judgment.
       </p>
 
       {isLoading && (

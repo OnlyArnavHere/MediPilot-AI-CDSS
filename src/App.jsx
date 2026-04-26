@@ -217,25 +217,22 @@ function App() {
 
     try {
       const prompt = buildClinicalPrompt(patientInfo, symptoms)
-      const response = await fetch('http://localhost:11434/api/generate', {
+      const response = await fetch('/api/generate-assessment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'llama3',
-          prompt,
-          stream: false,
-        }),
+        body: JSON.stringify({ prompt }),
       })
 
       if (!response.ok) {
-        throw new Error(`Ollama API error (${response.status}). Make sure Ollama is running locally.`)
+        const errorBody = await response.text()
+        throw new Error(`Assessment API error (${response.status}): ${errorBody}`)
       }
 
       const data = await response.json()
-      const modelText = data.response?.trim()
+      const modelText = data?.text?.trim() ?? ''
 
       if (!modelText) {
-        throw new Error('Model returned an empty response.')
+        throw new Error('The assessment service returned an empty response.')
       }
 
       setAssessment(parseClinicalReport(modelText))
@@ -276,7 +273,7 @@ function App() {
               AI-CDSS Triage Assistant
             </h1>
             <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-300 md:text-base">
-              Structured symptom intake with instant local AI assessment via Ollama.
+              Structured symptom intake with instant AI assessment via a Netlify Function and Google Gemini.
             </p>
           </motion.header>
 
